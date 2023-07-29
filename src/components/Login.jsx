@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import './login.css';
+import Cookies from 'js-cookie';
 
 
 function Login() {
@@ -24,15 +25,25 @@ function Login() {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res.data);
+          console.log('res login success=> ', res);
           // console.log('res.cookies=> ', res.cookies);
+          try {
+            Cookies.set('token', res.data.token);
+          } catch (error) {
+            console.log(error);
+          }
           setButtonText("Submitted");
           toast.success(res.data.message);
+          
           setIsLoggedin(true);
           nav("/dashboard");
-        });
+        })
+        .catch((err)=>{
+          console.log('Error loggin:', err);
+          toast.error(err.response?.data?.error || "An error occurred.");
+        })
     } catch (error) {
-      console.error("Error creating note:", error);
+      console.error("Error Logging:", error);
       toast.error(error.response?.data?.error || "An error occurred.");
     }
   };
