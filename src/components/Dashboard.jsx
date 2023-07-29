@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Card } from "react-bootstrap";
 import axios from "axios";
 import AddModal from "./AddModal";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import Note from "./Note";
 import "./dashboard.css";
 import SearchIcon from "@mui/icons-material/Search";
-
 
 function Dashboard() {
   const [notes, setNotes] = useState([]);
@@ -20,26 +19,18 @@ function Dashboard() {
   }, []);
 
   const fetchNotes = async (req, res) => {
-    axios.interceptors.request.use(
-      (config) => {
-        let token=document.cookie.split('=')[1];
-        const authToken = token;
-        if (authToken) {
-          config.headers.Authorization = `Bearer ${authToken}`;
-        }
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
+    let token = document.cookie.split("=")[1];
 
     try {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API}/note/notes`,
         withCredentials: true,
-      }); 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer '+token
+      },  
+      });
       console.log("response.data.data=> ", response.data.data);
       setNotes(response.data.data);
       console.log("got notes=> ", notes);
@@ -54,9 +45,9 @@ function Dashboard() {
         method: "DELETE",
         url: `${process.env.REACT_APP_API}/note/notes/${note._id}`,
         withCredentials: true,
-      });  
+      });
       setNotes(notes.filter((prev) => prev._id !== note._id));
-      fetchNotes(); 
+      fetchNotes();
     } catch (error) {
       console.error("Error deleting note: ", error);
     }
@@ -69,13 +60,13 @@ function Dashboard() {
     console.log("Adding new note:", newNote);
   };
 
-  const getName=()=>{
-    const token=document.cookie;
-    let data=jwt_decode(token);
-    const firstName=data.name.trim().split(' ')[0];
-    const name=firstName.charAt(0).toUpperCase()+firstName.slice(1);
+  const getName = () => {
+    const token = document.cookie;
+    let data = jwt_decode(token);
+    const firstName = data.name.trim().split(" ")[0];
+    const name = firstName.charAt(0).toUpperCase() + firstName.slice(1);
     return name;
-  }
+  };
 
   return (
     <div className="dashboard-page">
@@ -99,24 +90,26 @@ function Dashboard() {
 
         <div className="dashboard-note-container">
           <div className="dashboard-note-store">
-          {notes
-            ?.filter(
-              (note) =>
-                note.title.includes(query.toLowerCase()) ||
-                note.content.includes(query.toLowerCase()) ||
-                note.labels.some((label)=> label.includes(query.toLowerCase())) ||
-                note.formattedCreateDate.includes(query.toString()) ||
-                note.formattedUpdateDate.includes(query.toString())
-            )
-            .map((note) => (
-              <Note
-                note={note}
-                key={note._id}
-                onDeleteNote={handleDeleteNote}
-                onUpdateNote={(note) => setNoteToEdit(note)}
-              />
-            ))}
-            </div>
+            {notes
+              ?.filter(
+                (note) =>
+                  note.title.includes(query.toLowerCase()) ||
+                  note.content.includes(query.toLowerCase()) ||
+                  note.labels.some((label) =>
+                    label.includes(query.toLowerCase())
+                  ) ||
+                  note.formattedCreateDate.includes(query.toString()) ||
+                  note.formattedUpdateDate.includes(query.toString())
+              )
+              .map((note) => (
+                <Note
+                  note={note}
+                  key={note._id}
+                  onDeleteNote={handleDeleteNote}
+                  onUpdateNote={(note) => setNoteToEdit(note)}
+                />
+              ))}
+          </div>
 
           {/* Modal */}
           {showNoteDialog && (
