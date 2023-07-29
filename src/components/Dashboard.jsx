@@ -20,6 +20,20 @@ function Dashboard() {
   }, []);
 
   const fetchNotes = async (req, res) => {
+    axios.interceptors.request.use(
+      (config) => {
+        let token=document.cookie.split('=')[1];
+        const authToken = token;
+        if (authToken) {
+          config.headers.Authorization = `Bearer ${authToken}`;
+        }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
     try {
       const response = await axios({
         method: "GET",
