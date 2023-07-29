@@ -1,0 +1,48 @@
+
+.notes-heading{
+    color: #2979FF;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.note-component{
+    max-width: 60%; 
+    min-width: 40%; 
+    width: fit-content;
+    padding: 0 1rem 0 1rem;
+    margin: 1rem;
+    background-color: #f7f5a9;
+}
+.navbar-login{
+    font-size: 1.2rem;
+    background-color: #2979FF;
+    border-radius: 1rem;
+    color: white;
+    text-align: center;
+}
+.navbar-logout{
+    text-decoration: none;
+    font-size: 1.2rem;
+    background-color: red;
+    border-radius: 1rem;
+    padding: 4px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+.note-labels{
+    background-color: #fb8e18;
+}
+
+.note-buttons{
+    margin: 2rem auto auto auto;
+}
+.note-update-btn{
+    margin: auto 1rem auto auto;
+}
+
+
+@media screen and (max-width: 900px){
+    .note-component{
+        max-width: 95%;
+    }
+}

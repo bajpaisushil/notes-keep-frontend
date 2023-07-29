@@ -1,0 +1,35 @@
+.home-page{
+    white-space:pre-wrap;
+    display: flex;
+    text-align: center;
+}
+.home-about-notes{
+    width: 60%;
+    border-radius: 4rem;
+    height: fit-content;
+    font-size: 1.3rem;
+    padding: 1rem;
+    margin: 1rem;
+}
+.home-about-image{
+    
+}
+.notes-keeping-image{
+    height: 80vh;
+    width: 30rem;
+}
+
+
+@media screen and (max-width: 900px){
+    .home-page{
+        display: flex;
+        flex-direction: column;
+    }
+    .home-about-notes{
+        width: 95%;
+    }
+}
+
+
+
+

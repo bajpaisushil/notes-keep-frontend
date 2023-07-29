@@ -1,0 +1,77 @@
+
+
+.dashboard-page{
+  text-align: center;
+}
+.dashboard-container{
+  /* display: flex; */
+}
+.dashboard-name{
+font-size: 2rem;
+margin: 2rem;
+}
+.dashboard-note-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem auto auto auto;
+}
+.dashboard-note-store {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust as needed for spacing between notes */
+  justify-content: center; /* Center the notes horizontally */
+}
+
+
+/* Searching Styles */
+
+/* Search bar container */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+  padding: 5px;
+  width: 60%; /* Adjust the width as needed */
+  margin: 2rem auto 2rem auto;
+  outline: solid 1px gray;
+}
+
+/* Search input field */
+.search-bar input[type="text"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  padding: 10px;
+}
+
+/* Search button */
+.search-bar button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+}
+
+
+
+@media screen and (max-width: 900px){
+  .search-bar{
+      width: 80%;
+  }
+  .dashboard-note-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .dashboard-note-store {
+      max-width: 100%;
+      width: 700px; /* Adjust the width according to your design */
+      margin: 0 auto;
+    }
+}
