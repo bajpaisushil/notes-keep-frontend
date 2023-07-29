@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import "./note.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 
 function Navigation() {
@@ -18,6 +19,7 @@ function Navigation() {
         withCredentials: true,
       }).then((res) => {
         console.log(res.data);
+        Cookies.remove('token');
         nav("/");
       });
     } catch (error) {
