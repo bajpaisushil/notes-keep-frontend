@@ -25,7 +25,7 @@ function Dashboard() {
         method: "GET",
         url: `${process.env.REACT_APP_API}/note/notes`,
         withCredentials: true,
-      }); // Replace '/api/notes' with your backend endpoint for fetching notes
+      }); 
       console.log("response.data.data=> ", response.data.data);
       setNotes(response.data.data);
       console.log("got notes=> ", notes);
@@ -40,9 +40,9 @@ function Dashboard() {
         method: "DELETE",
         url: `${process.env.REACT_APP_API}/note/notes/${note._id}`,
         withCredentials: true,
-      }); // Replace '/api/notes' with your backend endpoint for deleting a note
+      });  
       setNotes(notes.filter((prev) => prev._id !== note._id));
-      fetchNotes(); // Refresh the notes list after deleting a note
+      fetchNotes(); 
     } catch (error) {
       console.error("Error deleting note: ", error);
     }
