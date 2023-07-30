@@ -22,7 +22,8 @@ function Dashboard() {
     let token = document.cookie.split("=")[1];
 
     try {
-      await axios({
+      console.log("localstorage=> ", localStorage.getItem("token"));
+      axios({
         method: "GET",
         url: `${process.env.REACT_APP_API}/note/notes`,
         withCredentials: true,
