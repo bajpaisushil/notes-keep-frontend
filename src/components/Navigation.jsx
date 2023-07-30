@@ -43,9 +43,14 @@ function Navigation() {
                 </Nav.Link>
               )}
               {cookies && (
+                <div className="navbar-dash-logout">
+                <Nav.Link href="/dashboard" className="navbar-dashboard">
+                  Dashboard
+                </Nav.Link>
                 <button className="navbar-logout" onClick={handleLogout}>
                   Logout
                 </button>
+                </div>
               )}
               {/* Add more Nav.Link elements as needed */}
             </Nav>

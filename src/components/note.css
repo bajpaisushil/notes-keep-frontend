@@ -39,6 +39,17 @@
 .note-update-btn{
     margin: auto 1rem auto auto;
 }
+.navbar-dash-logout{
+    display: flex;
+}
+.navbar-dashboard{
+    font-size: 1.3rem;
+    outline: solid 2px #2979FF;
+    margin: auto 1rem auto auto;
+    border-radius: 1.5rem;
+    font-weight: 700;
+    padding: 1rem;
+}
 
 
 @media screen and (max-width: 900px){
