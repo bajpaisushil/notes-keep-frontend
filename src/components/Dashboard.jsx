@@ -22,14 +22,13 @@ function Dashboard() {
     let token = document.cookie.split("=")[1];
 
     try {
-      console.log("localstorage=> ", localStorage.getItem("token"));
-      const response = await axios({
+      await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API}/note/notes`,
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}}`,
+          'Authorization': `Bearer ${token}`,
         },
       })
         .then((response) => {

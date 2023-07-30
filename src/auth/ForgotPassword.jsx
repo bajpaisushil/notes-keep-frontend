@@ -1,26 +1,65 @@
-import React from 'react';
-import { Container, Form, Button, Card } from 'react-bootstrap';
+import React, { useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+import { Link, useNavigate } from "react-router-dom";
+import './login.css';
 
 
-function ForgotPassword(){
+const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const [buttonText, setButtonText] = useState("Request Password Reset Link");
+  const nav=useNavigate();
+
+  const clickSubmit = (e) => {
+    e.preventDefault();
+    setButtonText("Please wait, It may take longer ...");
+    axios({
+      method: "PUT",
+      url: `${process.env.REACT_APP_API}/user/forgot-password`,
+      data: { email },
+    })
+      .then((response) => {
+        console.log("Forgot Password Success=> ", response);
+        toast.success(response.data.message);
+        setButtonText("Check your email")
+      })
+      .catch((error) => {
+        console.log("Forgot Password Error=> ", error.response);
+        toast.error(error.response.data.error);
+        setEmail("");
+        setTimeout(()=>{
+          nav("/signup")
+        }, 4000);
+      });
+  };
+  const forgotPassword=()=>(
+    <div className="login-page">
+      <ToastContainer />
+      <div className="login-container">
+      <h2 className="login-title">Forgot Password</h2>
+      <form className="login-form" onSubmit={clickSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Enter Email"
+          />
+        </div>
+        <div className="form-group">
+        <input type="submit" value={`${buttonText}`} />
+        </div>
+      </form>
+      </div>
+    </div>
+  )
 
   return (
-    <Container className="container mt-5">
-      <Card className="p-4 card-container">
-        <Card.Body>
-          <Card.Title className="mb-4 text-center card-title">Forgot Password</Card.Title>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter your email" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Send Reset Link
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+    forgotPassword()
   );
 };
 

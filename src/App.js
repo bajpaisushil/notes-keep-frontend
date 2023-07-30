@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import Signup from './components/Signup';
-import Login from './components/Login';
+import Signup from './auth/Signup';
+import Login from './auth/Login';
 import Navbar from './components/Navigation';
 import ActivateAccount from './auth/ActivateAccount';
 import ForgotPassword from './auth/ForgotPassword';

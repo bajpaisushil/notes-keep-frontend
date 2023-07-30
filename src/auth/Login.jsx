@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import './login.css';
 import Cookies from 'js-cookie';
@@ -17,8 +17,7 @@ function Login() {
     e.preventDefault();
     setButtonText("Please Wait! Logging In ...");
     try {
-      axios
-        .request({
+      axios({
           method: "POST",
           url: `${process.env.REACT_APP_API}/user/login`,
           data: { email, password },
@@ -29,7 +28,7 @@ function Login() {
           // console.log('res.cookies=> ', res.cookies);
           try {
             Cookies.set('token', res.data.token);
-            localStorage.setItem('token', res.data.token);
+            // localStorage.setItem('token', res.data.token);
           } catch (error) {
             console.log(error);
           }
@@ -42,10 +41,12 @@ function Login() {
         .catch((err)=>{
           console.log('Error loggin:', err);
           toast.error(err.response?.data?.error || "An error occurred.");
+          setButtonText("Login");
         })
     } catch (error) {
       console.error("Error Logging:", error);
       toast.error(error.response?.data?.error || "An error occurred.");
+      setButtonText("Login");
     }
   };
 
@@ -82,6 +83,7 @@ function Login() {
         <div className="form-group login-signup-link">
           Don't have an account? <a href="/signup">Sign Up</a>
         </div>
+        <Link to="/auth/password/forgot" className="forgot-password-button">Forgot Password</Link>
       </form>
       </div>
     </div>

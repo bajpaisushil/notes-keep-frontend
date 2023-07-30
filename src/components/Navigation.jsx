@@ -18,8 +18,8 @@ function Navigation() {
         url: `${process.env.REACT_APP_API}/user/logout`,
         withCredentials: true,
       }).then((res) => {
-        console.log(res.data);
         Cookies.remove('token');
+        console.log('logout success=> ',res.data);
         nav("/");
       });
     } catch (error) {
