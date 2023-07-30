@@ -11,6 +11,15 @@ const AddModal = ({ onDismiss, onNoteSaved, noteToEdit }) => {
   const [labels, setLabels] = useState([]);
   const [addNoteClicked, SetAddNoteClicked] = useState(false);
 
+  useEffect(() => {
+    // Pre-fill form fields if noteToEdit is provided
+    if (noteToEdit) {
+      setTitle(noteToEdit.title);
+      setContent(noteToEdit.content);
+      setLabels(noteToEdit.labels.join(", "));
+    }
+  }, [noteToEdit]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newNote = {
