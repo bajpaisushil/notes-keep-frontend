@@ -29,6 +29,7 @@ function Login() {
           // console.log('res.cookies=> ', res.cookies);
           try {
             Cookies.set('token', res.data.token);
+            localStorage.setItem('token', res.data.token);
           } catch (error) {
             console.log(error);
           }

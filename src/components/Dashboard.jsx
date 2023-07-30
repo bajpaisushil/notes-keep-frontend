@@ -22,15 +22,23 @@ function Dashboard() {
     let token = document.cookie.split("=")[1];
 
     try {
+      console.log('localstorage=> ', localStorage.getItem("token"));
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API}/note/notes`,
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer '+token
-      },  
-      });
+          'Authorization': `Bearer ${token}}`
+      },
+      })
+      .then((response) => {
+        console.log('response',response.data)
+
+      })
+      .catch((error) => {
+        alert('error',error.response);
+      })
       console.log("response.data.data=> ", response.data.data);
       setNotes(response.data.data);
       console.log("got notes=> ", notes);
@@ -93,13 +101,11 @@ function Dashboard() {
             {notes
               ?.filter(
                 (note) =>
-                  note.title.includes(query.toLowerCase()) ||
-                  note.content.includes(query.toLowerCase()) ||
-                  note.labels.some((label) =>
-                    label.includes(query.toLowerCase())
-                  ) ||
-                  note.formattedCreateDate.includes(query.toString()) ||
-                  note.formattedUpdateDate.includes(query.toString())
+                (note.title && note.title.includes(query.toLowerCase())) ||
+                (note.content && note.content.includes(query.toLowerCase())) ||
+                (note.labels && note.labels.some((label) => label.includes(query.toLowerCase()))) ||
+                (note.formattedCreateDate && note.formattedCreateDate.includes(query.toString())) ||
+                (note.formattedUpdateDate && note.formattedUpdateDate.includes(query.toString()))
               )
               .map((note) => (
                 <Note
