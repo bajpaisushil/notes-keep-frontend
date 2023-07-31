@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "./note.css";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +8,12 @@ import Cookies from 'js-cookie';
 
 function Navigation() {
   const cookies = document.cookie;
+  const [logoutText, setLogoutText]=useState("Log Out");
   console.log("cookies=> ", cookies);
   const nav=useNavigate();
 
   function handleLogout() {
+    setLogoutText("Logging out ...");
     try {
       axios({
         method: "POST",
@@ -48,7 +50,7 @@ function Navigation() {
                   Dashboard
                 </Nav.Link>
                 <button className="navbar-logout" onClick={handleLogout}>
-                  Logout
+                  {logoutText}
                 </button>
                 </div>
               )}

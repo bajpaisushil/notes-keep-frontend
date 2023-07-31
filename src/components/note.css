@@ -22,12 +22,18 @@
 .navbar-logout{
     text-decoration: none;
     font-size: 1.2rem;
-    background-color: red;
+    background-color: white;
+    color: red;
+    outline: 2px solid red;
     border-radius: 1rem;
-    padding: 4px;
-    color: white;
+    padding: 5px;
+    border: none;
     text-align: center;
     cursor: pointer;
+}
+.navbar-logout:hover{
+    background-color: red;
+    color: white;
 }
 .note-labels{
     background-color: #fb8e18;
@@ -43,12 +49,15 @@
     display: flex;
 }
 .navbar-dashboard{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     outline: solid 2px #2979FF;
     margin: auto 1rem auto auto;
     border-radius: 1.5rem;
     font-weight: 700;
-    padding: 1rem;
+    padding: 7px;
+}
+.navbar-dashboard:hover{
+    background-color: #2979FF;
 }
 
 

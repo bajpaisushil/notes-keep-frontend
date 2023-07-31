@@ -69,6 +69,7 @@ function Dashboard() {
   const getName = () => {
     const token = document.cookie;
     let data = jwt_decode(token);
+    console.log('data=> ', data);
     const firstName = data.name.trim().split(" ")[0];
     const name = firstName.charAt(0).toUpperCase() + firstName.slice(1);
     return name;
