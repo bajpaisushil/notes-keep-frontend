@@ -20,7 +20,7 @@ function Signup() {
       })
         .then((res) => {
           console.log(res.data);
-          setButtonText("Submitted");
+          setButtonText("Check e-mail (Retry if didn't get activation link)");
           toast.success(res.data.message);
         })
         .catch((error) => {
