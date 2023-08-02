@@ -9,6 +9,9 @@ const AddModal = ({ onDismiss, onNoteSaved, noteToEdit }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [labels, setLabels] = useState([]);
+  const [disabled, setDisabled]=useState(false);
+  const [addButtonText, setAddButtonText]=useState('Add Note');
+  const [updateButtonText, setUpdateButtonText]=useState('Update Note');
   const [addNoteClicked, SetAddNoteClicked] = useState(false);
 
   useEffect(() => {
@@ -16,12 +19,13 @@ const AddModal = ({ onDismiss, onNoteSaved, noteToEdit }) => {
     if (noteToEdit) {
       setTitle(noteToEdit.title);
       setContent(noteToEdit.content);
-      setLabels(noteToEdit.labels.join(", "));
+      setLabels(noteToEdit.labels.join(","));
     }
   }, [noteToEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setDisabled(true);
     const newNote = {
       title,
       content,
@@ -29,24 +33,33 @@ const AddModal = ({ onDismiss, onNoteSaved, noteToEdit }) => {
     };
     try {
       if (noteToEdit) {
+        setUpdateButtonText("Updating note ...");
         axios({
           method: "PUT",
           url: `${process.env.REACT_APP_API}/note/notes/${noteToEdit._id}`,
           data: newNote,
           withCredentials: true,
         }).then((res) => {
-          onNoteSaved(res.data.note);
+          setTimeout(()=>{
+            onNoteSaved(res.data.note);
+          }, [100])
           toast.success(res.data.message);
+          setDisabled(false);
         });
       } else {
+        setAddButtonText("Adding note ...");
+
         axios({
           method: "POST",
           url: `${process.env.REACT_APP_API}/note/notes`,
           data: newNote,
           withCredentials: true,
         }).then((res) => {
-          onNoteSaved(res.data.note);
+          setTimeout(()=>{
+            onNoteSaved(res.data.note);
+          }, [100])
           toast.success(res.data.message);
+          setDisabled(false);
         });
       }
     } catch (err) {
@@ -58,7 +71,7 @@ const AddModal = ({ onDismiss, onNoteSaved, noteToEdit }) => {
   return (
     <Modal show onHide={onDismiss}>
       <Modal.Header closeButton>
-        <Modal.Title>{noteToEdit ? "Update" : "Add Note"}</Modal.Title>
+        <Modal.Title>{noteToEdit ? updateButtonText : addButtonText }</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
@@ -95,8 +108,9 @@ const AddModal = ({ onDismiss, onNoteSaved, noteToEdit }) => {
             style={{ margin: "1rem auto auto auto" }}
             variant="primary"
             type="submit"
+            disabled={disabled}
           >
-            {noteToEdit? "Update": "Add Note"}
+            {noteToEdit? updateButtonText: addButtonText}
           </Button>
         </Form>
       </Modal.Body>

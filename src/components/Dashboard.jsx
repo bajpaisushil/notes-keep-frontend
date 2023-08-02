@@ -6,12 +6,16 @@ import jwt_decode from "jwt-decode";
 import Note from "./Note";
 import "./dashboard.css";
 import SearchIcon from "@mui/icons-material/Search";
+import CircularProgress from "@mui/material/CircularProgress";
+import { toast } from "react-toastify";
+
 
 function Dashboard() {
   const [notes, setNotes] = useState([]);
   const [noteToEdit, setNoteToEdit] = useState(null);
   const [showNoteDialog, setShowNoteDialog] = useState(false);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch notes from the backend when the component mounts
@@ -22,26 +26,30 @@ function Dashboard() {
     let token = document.cookie.split("=")[1];
 
     try {
-      console.log("localstorage=> ", localStorage.getItem("token"));
       axios({
         method: "GET",
         url: `${process.env.REACT_APP_API}/note/notes`,
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => {
           console.log("response.data.data=> ", response.data.data);
           setNotes(response.data.data);
+          setLoading(false);
           console.log("got notes=> ", notes);
         })
         .catch((error) => {
+          setLoading(false);
           console.log("Error fetching notes=> ", error);
+          toast.error('Error in fetching notes! Try again later');
         });
     } catch (error) {
       console.error("Error fetching notes:", error);
+      setLoading(false);
+      toast.error('Error in fetching notes! Try again later');
     }
   };
 
@@ -69,7 +77,7 @@ function Dashboard() {
   const getName = () => {
     const token = document.cookie;
     let data = jwt_decode(token);
-    console.log('data=> ', data);
+    console.log("data=> ", data);
     const firstName = data.name.trim().split(" ")[0];
     const name = firstName.charAt(0).toUpperCase() + firstName.slice(1);
     return name;
@@ -96,31 +104,35 @@ function Dashboard() {
         </div>
 
         <div className="dashboard-note-container">
-          <div className="dashboard-note-store">
-            {notes
-              ?.filter(
-                (note) =>
-                  (note.title && note.title.includes(query.toLowerCase())) ||
-                  (note.content &&
-                    note.content.includes(query.toLowerCase())) ||
-                  (note.labels &&
-                    note.labels.some((label) =>
-                      label.includes(query.toLowerCase())
-                    )) ||
-                  (note.formattedCreateDate &&
-                    note.formattedCreateDate.includes(query.toString())) ||
-                  (note.formattedUpdateDate &&
-                    note.formattedUpdateDate.includes(query.toString()))
-              )
-              .map((note) => (
-                <Note
-                  note={note}
-                  key={note._id}
-                  onDeleteNote={handleDeleteNote}
-                  onUpdateNote={(note) => setNoteToEdit(note)}
-                />
-              ))}
-          </div>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <div className="dashboard-note-store">
+              {notes
+                ?.filter(
+                  (note) =>
+                    (note.title && note.title.includes(query.toLowerCase())) ||
+                    (note.content &&
+                      note.content.includes(query.toLowerCase())) ||
+                    (note.labels &&
+                      note.labels.some((label) =>
+                        label.includes(query.toLowerCase())
+                      )) ||
+                    (note.formattedCreateDate &&
+                      note.formattedCreateDate.includes(query.toString())) ||
+                    (note.formattedUpdateDate &&
+                      note.formattedUpdateDate.includes(query.toString()))
+                )
+                .map((note) => (
+                  <Note
+                    note={note}
+                    key={note._id}
+                    onDeleteNote={handleDeleteNote}
+                    onUpdateNote={(note) => setNoteToEdit(note)}
+                  />
+                ))}
+            </div>
+          )}
 
           {/* Modal */}
           {showNoteDialog && (
