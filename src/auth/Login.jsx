@@ -27,7 +27,7 @@ function Login() {
           console.log('res login success=> ', res);
           // console.log('res.cookies=> ', res.cookies);
           try {
-            Cookies.set('token', res.data.token);
+            Cookies.set('token', res.data.token, {expires: 7});
             // localStorage.setItem('token', res.data.token);
           } catch (error) {
             console.log(error);

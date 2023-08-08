@@ -8,6 +8,7 @@ import "./dashboard.css";
 import SearchIcon from "@mui/icons-material/Search";
 import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 
 function Dashboard() {
@@ -23,7 +24,9 @@ function Dashboard() {
   }, []);
 
   const fetchNotes = async (req, res) => {
-    let token = document.cookie.split("=")[1];
+    // let token = document.cookie.split("=")[1];
+    let token=Cookies.get('token');
+    // console.log('token value: ', tokenValue);
 
     try {
       axios({
@@ -44,12 +47,12 @@ function Dashboard() {
         .catch((error) => {
           setLoading(false);
           console.log("Error fetching notes=> ", error);
-          toast.error('Error in fetching notes! Try again later');
+          toast.error('Error in fetching notes! Kindly Logout & Login again');
         });
     } catch (error) {
       console.error("Error fetching notes:", error);
       setLoading(false);
-      toast.error('Error in fetching notes! Try again later');
+      toast.error('Error in fetching notes! Kindly Logout & Login again');
     }
   };
 
@@ -105,7 +108,10 @@ function Dashboard() {
 
         <div className="dashboard-note-container">
           {loading ? (
-            <CircularProgress />
+            <>
+            <div><CircularProgress /></div>
+            <h5>Fetching your notes...</h5>
+            </>
           ) : (
             <div className="dashboard-note-store">
               {notes

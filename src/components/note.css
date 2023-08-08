@@ -27,6 +27,8 @@
     outline: 2px solid red;
     border-radius: 1rem;
     padding: 5px;
+    height: 2.5rem;
+    margin: auto;
     border: none;
     text-align: center;
     cursor: pointer;
@@ -47,14 +49,15 @@
 }
 .navbar-dash-logout{
     display: flex;
+    flex-direction: row;
 }
 .navbar-dashboard{
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     outline: solid 2px #2979FF;
     margin: auto 1rem auto auto;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     font-weight: 700;
-    padding: 7px;
+    padding: 8px;
 }
 .navbar-dashboard:hover{
     background-color: #2979FF;

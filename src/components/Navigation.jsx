@@ -9,7 +9,9 @@ import Cookies from 'js-cookie';
 function Navigation() {
   const cookies = document.cookie;
   const [logoutText, setLogoutText]=useState("Log Out");
-  console.log("cookies=> ", cookies);
+  const tokenValue=Cookies.get('token');
+    console.log('token value: ', tokenValue);
+  // console.log("cookies=> ", cookies);
   const nav=useNavigate();
 
   function handleLogout() {
@@ -44,7 +46,10 @@ function Navigation() {
                   Login
                 </Nav.Link>
               )}
-              {cookies && (
+              
+              {/* Add more Nav.Link elements as needed */}
+            </Nav>
+            {cookies && (
                 <div className="navbar-dash-logout">
                 <Nav.Link href="/dashboard" className="navbar-dashboard">
                   Dashboard
@@ -54,8 +59,6 @@ function Navigation() {
                 </button>
                 </div>
               )}
-              {/* Add more Nav.Link elements as needed */}
-            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
