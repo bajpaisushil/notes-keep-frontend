@@ -23,6 +23,7 @@ const ForgotPassword = () => {
         console.log("Forgot Password Success=> ", response);
         toast.success(response.data.message);
         setButtonText("Check your email")
+        setEmail("");
       })
       .catch((error) => {
         console.log("Forgot Password Error=> ", error.response);

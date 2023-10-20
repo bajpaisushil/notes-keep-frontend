@@ -3,16 +3,14 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import "./note.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Cookies from 'js-cookie';
-
+import Cookies from "js-cookie";
 
 function Navigation() {
-  const cookies = document.cookie;
-  const [logoutText, setLogoutText]=useState("Log Out");
-  const tokenValue=Cookies.get('token');
-    console.log('token value: ', tokenValue);
-  // console.log("cookies=> ", cookies);
-  const nav=useNavigate();
+  const cookies = Cookies.get("token");
+  const [logoutText, setLogoutText] = useState("Log Out");
+  const tokenValue = Cookies.get("token");
+  console.log("token value: ", tokenValue);
+  const nav = useNavigate();
 
   function handleLogout() {
     setLogoutText("Logging out ...");
@@ -22,9 +20,10 @@ function Navigation() {
         url: `${process.env.REACT_APP_API}/user/logout`,
         withCredentials: true,
       }).then((res) => {
-        Cookies.remove('token');
-        console.log('logout success=> ',res.data);
-        nav("/");
+        Cookies.remove("token");
+        console.log("logout success=> ", res.data);
+        setLogoutText("Logged out");
+        nav("/login");
       });
     } catch (error) {
       console.log(error);
@@ -46,19 +45,19 @@ function Navigation() {
                   Login
                 </Nav.Link>
               )}
-              
+
               {/* Add more Nav.Link elements as needed */}
             </Nav>
             {cookies && (
-                <div className="navbar-dash-logout">
+              <div className="navbar-dash-logout">
                 <Nav.Link href="/dashboard" className="navbar-dashboard">
                   Dashboard
                 </Nav.Link>
                 <button className="navbar-logout" onClick={handleLogout}>
                   {logoutText}
                 </button>
-                </div>
-              )}
+              </div>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

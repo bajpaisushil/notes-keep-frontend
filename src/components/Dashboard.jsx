@@ -26,7 +26,7 @@ function Dashboard() {
   const fetchNotes = async (req, res) => {
     // let token = document.cookie.split("=")[1];
     let token=Cookies.get('token');
-    // console.log('token value: ', tokenValue);
+    console.log('token value: ', token);
 
     try {
       axios({
@@ -78,7 +78,7 @@ function Dashboard() {
   };
 
   const getName = () => {
-    const token = document.cookie;
+    const token = Cookies.get('token');
     let data = jwt_decode(token);
     console.log("data=> ", data);
     const firstName = data.name.trim().split(" ")[0];
