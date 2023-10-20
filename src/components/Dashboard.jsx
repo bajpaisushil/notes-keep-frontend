@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import axios from "axios";
 import AddModal from "./AddModal";
 import jwt_decode from "jwt-decode";
@@ -17,11 +17,6 @@ function Dashboard() {
   const [showNoteDialog, setShowNoteDialog] = useState(false);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fetch notes from the backend when the component mounts
-    fetchNotes();
-  }, []);
 
   const fetchNotes = async (req, res) => {
     // let token = document.cookie.split("=")[1];
@@ -55,6 +50,10 @@ function Dashboard() {
       toast.error('Error in fetching notes! Kindly Logout & Login again');
     }
   };
+  useEffect(() => {
+    // Fetch notes from the backend when the component mounts
+    fetchNotes();
+  }, []);
 
   const handleDeleteNote = async (note) => {
     try {
