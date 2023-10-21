@@ -22,7 +22,6 @@ function Navigation() {
       }).then((res) => {
         Cookies.remove("token");
         console.log("logout success=> ", res.data);
-        setLogoutText("Logged out");
         nav("/login");
       });
     } catch (error) {
