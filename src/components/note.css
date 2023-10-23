@@ -22,7 +22,8 @@
 }
 .navbar-logout{
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
+    font-weight: 500;
     background-color: red;
     color: white;
     outline: 2px solid red;
@@ -55,13 +56,15 @@
     font-size: 1.4rem;
     font-weight: 500;
     outline: solid 2px #2979FF;
+    background-color: #2979FF;
+    color: white;
     margin: auto 1rem auto auto;
     border-radius: 1rem;
-    height: 2.6rem;
-    padding: 5px;
+    padding: 4px;
 }
 .navbar-dashboard:hover{
-    background-color: #2979FF;
+    background-color: white;
+    color: #2979FF;
 }
 
 

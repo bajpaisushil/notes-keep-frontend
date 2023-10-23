@@ -20,6 +20,7 @@ function Navigation() {
         url: `${process.env.REACT_APP_API}/user/logout`,
         withCredentials: true,
       }).then((res) => {
+        setLogoutText("Log out");
         Cookies.remove("token");
         console.log("logout success=> ", res.data);
         nav("/login");

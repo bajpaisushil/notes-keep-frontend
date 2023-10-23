@@ -88,6 +88,7 @@ function Dashboard() {
   return (
     <div className="dashboard-page">
       {/* Dashboard content */}
+      
       <div className="dashboard-container">
         <h2 className="dashboard-name">{getName()}'s Dashboard</h2>
         <Button variant="primary" onClick={() => setShowNoteDialog(true)}>
