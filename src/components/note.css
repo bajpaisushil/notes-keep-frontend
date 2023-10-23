@@ -10,7 +10,8 @@
     width: fit-content;
     padding: 0 1rem 0 1rem;
     margin: 1rem;
-    background-color: #FFFFCC	
+    /* background-color: #FFFFCC	 */
+    background-color: #fffdaf;
 }
 .navbar-login{
     font-size: 1.2rem;
@@ -22,20 +23,19 @@
 .navbar-logout{
     text-decoration: none;
     font-size: 1.2rem;
-    background-color: white;
-    color: red;
+    background-color: red;
+    color: white;
     outline: 2px solid red;
     border-radius: 1rem;
-    padding: 5px;
-    height: 2.5rem;
+    height: 2.4rem;
     margin: auto;
     border: none;
     text-align: center;
     cursor: pointer;
 }
 .navbar-logout:hover{
-    background-color: red;
-    color: white;
+    background-color: white;
+    color: red;
 }
 .note-labels{
     background-color: #fb8e18;
@@ -53,10 +53,10 @@
 }
 .navbar-dashboard{
     font-size: 1.4rem;
+    font-weight: 500;
     outline: solid 2px #2979FF;
     margin: auto 1rem auto auto;
     border-radius: 1rem;
-    font-weight: 700;
     height: 2.6rem;
     padding: 5px;
 }
