@@ -8,12 +8,14 @@ import './login.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [btnBool, setBtnBool]=useState(false);
   const [buttonText, setButtonText] = useState("Request Password Reset Link");
   const nav=useNavigate();
 
   const clickSubmit = (e) => {
     e.preventDefault();
     setButtonText("Please wait, It may take longer ...");
+    setBtnBool(true);
     axios({
       method: "PUT",
       url: `${process.env.REACT_APP_API}/user/forgot-password`,
@@ -22,8 +24,9 @@ const ForgotPassword = () => {
       .then((response) => {
         console.log("Forgot Password Success=> ", response);
         toast.success(response.data.message);
-        setButtonText("Check your email")
+        setButtonText("Check your email");
         setEmail("");
+        setBtnBool(false);
       })
       .catch((error) => {
         console.log("Forgot Password Error=> ", error.response);
@@ -52,7 +55,7 @@ const ForgotPassword = () => {
           />
         </div>
         <div className="form-group">
-        <input type="submit" value={`${buttonText}`} />
+        <input type="submit" disabled={btnBool} value={`${buttonText}`} />
         </div>
       </form>
       </div>

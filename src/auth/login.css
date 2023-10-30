@@ -66,8 +66,8 @@
     text-decoration: none;
   }
   .forgot-password-button{
-    background-color:white;
-    color:red;
+    background-color:red;
+    color:white;
     width: fit-content;
     text-decoration: none;
     display: block;
@@ -79,8 +79,8 @@
     padding: .5rem;
   }
   .forgot-password-button:hover{
-    background-color: red;
-    color: white;
+    background-color: white;
+    color: red;
   }
   
   @media screen and (max-width: 900px){

@@ -21,9 +21,9 @@ function Signup() {
         .then((res) => {
           console.log(res.data);
           setButtonText("Check e-mail (Retry if didn't get activation link)");
-          // setName("");
-          // setEmail("");
-          // setPassword("");
+          setName("");
+          setEmail("");
+          setPassword("");
           toast.success(res.data.message);
         })
         .catch((error) => {
@@ -37,9 +37,6 @@ function Signup() {
           toast.error(error.response?.data?.error || "An error occurred.");
       }
     }
-      //   setName("");
-      //   setEmail("");
-      //   setPassword("");
 
   return (
     <div className="login-page">
