@@ -14,8 +14,7 @@ node_modules
 
 # production
 /build
-/Ads.txt
-Ads.txt
+
 
 # misc
 .DS_Store
