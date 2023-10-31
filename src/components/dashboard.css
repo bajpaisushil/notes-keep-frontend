@@ -10,6 +10,11 @@
 font-size: 2rem;
 margin: 2rem;
 }
+
+.progress_text{
+  width: 100%;
+  padding: 1rem;
+}
 .dashboard-note-container{
   display: flex;
   flex-wrap: wrap;

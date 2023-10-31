@@ -109,8 +109,8 @@ function Dashboard() {
         <div className="dashboard-note-container">
           {loading ? (
             <>
-            <div><CircularProgress /></div>
-            <h5>Fetching your notes...</h5>
+            <div className="progress"><CircularProgress /></div>
+            <h5 className="progress_text">Fetching your notes...</h5>
             </>
           ) : (
             <div className="dashboard-note-store">
