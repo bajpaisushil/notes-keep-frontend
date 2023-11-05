@@ -10,12 +10,14 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [buttonText, setButtonText]=useState("Log In");
+  const [btnBool, setBtnBool]=useState(false);
   const nav = useNavigate();
   const [isLoggedin, setIsLoggedin] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setButtonText("Please Wait! Logging In ...");
+    setBtnBool(true);
     try {
       axios({
           method: "POST",
@@ -34,7 +36,7 @@ function Login() {
           }
           setButtonText("Submitted");
           toast.success(res.data.message);
-          
+          setBtnBool(false);
           setIsLoggedin(true);
           nav("/dashboard");
         })
@@ -47,6 +49,7 @@ function Login() {
       console.error("Error Logging:", error);
       toast.error(error.response?.data?.error || "An error occurred.");
       setButtonText("Login");
+      setBtnBool(false);
     }
   };
 
@@ -78,7 +81,7 @@ function Login() {
           />
         </div>
         <div className="form-group">
-        <input type="submit" value={`${buttonText}`} />
+        <input type="submit" disabled={btnBool} value={`${buttonText}`} />
         </div>
         <div className="form-group login-signup-link">
           Don't have an account? <a href="/signup">Sign Up</a>

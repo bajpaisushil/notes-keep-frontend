@@ -7,10 +7,12 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [btnBool, setBtnBool]=useState(false);
   const [buttonText, setButtonText] = useState("Sign Up");
 
   const handleSignup = (e) => {
     e.preventDefault();
+    setBtnBool(true);
     setButtonText("Please Wait! Signing Up ...");
     try {
       axios({
@@ -25,11 +27,13 @@ function Signup() {
           setEmail("");
           setPassword("");
           toast.success(res.data.message);
+          setBtnBool(false);
         })
         .catch((error) => {
           console.error("Error creating note:", error);
           toast.error(error.response?.data?.error || "An error occurred.");
           setButtonText("Sign Up");
+          setBtnBool(false);
         });
       }
       catch(error){
@@ -77,7 +81,7 @@ function Signup() {
             />
           </div>
           <div className="form-group">
-            <input type="submit" value={`${buttonText}`} />
+            <input type="submit" disabled={btnBool} value={`${buttonText}`} />
           </div>
           <div className="form-group login-signup-link">
             Already have an account? <a href="/login">Log In</a>
