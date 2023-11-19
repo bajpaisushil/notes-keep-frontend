@@ -11,6 +11,11 @@ font-size: 2rem;
 margin: 2rem;
 }
 
+.progress{
+  width: fit-content;
+  margin: auto;
+  height: 100%;
+}
 .progress_text{
   width: 100%;
   padding: 1rem;
